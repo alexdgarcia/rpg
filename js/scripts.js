@@ -21,7 +21,6 @@ $(document).ready(function() {
   const kraken = new Kraken('The Kraken', 5, 'Sea Creature');
   const unknown = new Unknown('Unknown', 5, '?');
   const dragon = new Dragon('Grim Matchstick', 7, 'Dragon');
-  // $
   // Variables that hold jQuery objects should be prepended
   // with a $.
   const $mage = $('div.mage');
@@ -33,19 +32,25 @@ $(document).ready(function() {
   const $enemyIcon = $('span.enemy-icon');
   const $enemyName = $('span.enemy-name');
   const enemies = [ogre, kraken, unknown, dragon];
+  const App = { // Main functionality
+    init: function(event) {
+      this.isMage = event.currentTarget.classList.contains('mage');
+      this.hero = (this.isMage) ? new Mage('Gandalf', 1, 'Mage') :
+        new Warrior('Aragorn', 1, 'Warrior');
 
-  const App = {
-    init: function(hero) {
-      // console.log('game has begun!');
-      // hero.greet();
-      // hero.attack();
-      this.renderHero(hero);
+      // Hide current modal:
+        // $
+        // jQuery method for adding a class to existing
+        // classList:
+      $modal.addClass('hide-modal');
+      // call rendering functions and set event listeners:
+      this.renderHero();
       this.renderEnemy(enemies[0]);
       this.eventListeners();
     },
-    renderHero: function(hero) {
-      $playerIcon.text(hero.icon);
-      $playerName.append(hero.name);
+    renderHero: function() {
+      $playerIcon.text(this.hero.icon);
+      $playerName.append(this.hero.name);
     },
     renderEnemy: function(enemy) {
       $enemyIcon.text(enemy.icon);
@@ -57,35 +62,41 @@ $(document).ready(function() {
       $('div.hero-options').on('click', this.triggerMenu.bind(this));
     },
     triggerMenu: function(event) {
-      switch (event.target.innerText) {
-        case "Attack":
-          $('div.attacks').addClass('show-options-submenu');
+      const menuClicked = event.target.innerText.toLowerCase();
+
+      switch (menuClicked) {
+        case "attack":
+          const attackMenu = $('div.attacks');
+          attackMenu.addClass('show-options-submenu');
+          this.renderMenu(menuClicked, attackMenu);
           break; // prevents fallthrough behavior.
-        case "Magic":
-          $('div.magic').addClass('show-options-submenu');
+        case "magic":
+          const magicMenu = $('div.magic');
+          magicMenu.addClass('show-options-submenu');
+          this.renderMenu(menuClicked, magicMenu);
           break;
-        case "Items":
-          $('div.items').addClass('show-options-submenu');
+        case "items":
+          const itemsMenu = $('div.items');
+          itemsMenu.addClass('show-options-submenu');
+          this.renderMenu(menuClicked, itemsMenu);
           break;
+      }
+    },
+    renderMenu: function(menuType, menuElement) {
+      // Use the "in" keyword to iterate through the keys in an
+      // object:
+      for (let spell in this.hero[menuType]) {
+        menuElement.append(`<p>${spell}</p>`);
+        console.log(spell);
       }
     }
   };
 
-  function heroSelected(event) {
-    if (event.currentTarget.classList.contains('mage')) {
-      const hero = new Mage('Gandalf', 1, 'Mage');
-      App.init(hero);
-    } else {
-      const hero = new Warrior('Aragorn', 1, 'Warrior');
-      App.init(hero);
-    }
-
-    // $
-    // jQuery method for adding a class to existing
-    // classList:
-    $modal.addClass('hide-modal');
-  }
-
-  $mage.on('click', heroSelected);
-  $warrior.on('click', heroSelected);
+  // jQuery event listeners. Remember, the callback
+  // is invoked whenever the event occurs, don't invoke
+  // it prematurely by doing something like App.init(event).
+  // The event object is always passed automatically in a
+  // listener:
+  $mage.on('click', App.init.bind(App));
+  $warrior.on('click', App.init.bind(App));
 });
