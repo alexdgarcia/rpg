@@ -1,0 +1,224 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+:root {
+  font-size: 16px;
+  font-family: sans-serif;
+}
+
+.character-select span {
+  font-size: 4rem;
+}
+
+.container {
+  width: 960px;
+  margin: 0px auto;
+}
+
+.modal {
+  border: 1px solid red;
+  position: fixed;
+  /*
+   * z-index is required to prevent other positioned elements from being
+   * at the same level. Remember that we want the modal to appear on its own.
+   */
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: hsl(0, 100%, 100%);
+}
+
+.hide-modal {
+  display: none;
+}
+
+.modal-content {
+  padding-top: 200px;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.character-select {
+  width: 33%;
+  margin: 10px auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+
+.char {
+  text-align: center;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.char:hover {
+  background-color: hsl(220, 100%, 55%);
+  color: hsl(0, 100%, 100%);
+  cursor: pointer;
+}
+
+div.characters {
+  border: 1px solid black;
+
+  display: flex;
+  justify-content: space-between;
+  /* height: 200px; */
+  padding: 30px;
+  font-size: 1.3rem;
+}
+
+.player-tile {
+  width: 33%;
+
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+.player-icon {
+  padding-right: 10px;
+}
+
+.health-bar {
+  width: 80%;
+  height: 5px;
+  border: 1px solid black;
+  margin-left: 10px;
+  margin-bottom: 3px;
+}
+
+.damage-bar {
+  width: 100%;
+  height: 100%;
+  background-color: hsl(120, 100%, 50%);
+}
+
+.mana-bar {
+  width: 80%;
+  height: 5px;
+  border: 1px solid black;
+  margin-left: 10px;
+}
+
+.mana-spent {
+  width: 100%;
+  height: 100%;
+  background-color: hsl(242, 100%, 50%);
+}
+
+.enemy-tile {
+  width: 33%;
+
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+.enemy-icon {
+  padding-right: 10px;
+}
+
+.enemy-health-bar {
+  width: 80%;
+  height: 5px;
+  border: 1px solid black;
+  margin-left: 10px;
+  margin-bottom: 3px;
+}
+
+.enemy-damage-bar {
+  width: 100%;
+  height: 100%;
+  background-color: hsl(120, 100%, 50%);
+}
+
+.player-tile,
+.enemy-tile {
+  padding-bottom: 5px;
+}
+.player-tile p,
+.enemy-tile p {
+  margin-left: 10px;
+}
+
+.player-icon, .player-name,
+.enemy-icon, .enemy-name {
+  padding-left: 10px;
+}
+
+.game-board {
+  display: flex;
+  height: 500px;
+  width: 90%;
+  margin: 20px auto;
+  border: 1px solid black;
+}
+
+.board-panel {
+  width: calc(100% / 5);
+  border: 1px solid black;
+}
+
+/*
+ * Important to note: flex stretches items vertically by
+ * default, i.e. if one container has content and another
+ * container does not, they will both still be equal heights
+ * if the parent has a display property of flex.
+ */
+.menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.menu > div {
+  width: 33%;
+  height: 100px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+.hero-menu {
+  margin-left: 30px;
+}
+
+.hero-menu span {
+  display: block;
+  margin: 10px;
+}
+
+.enemy-status {
+  margin-right: 30px;
+}
+
+.hero-options {
+  height: 100%;
+  border: 1px solid blue;
+  position: relative;
+}
+
+.hero-options > div {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: hsl(0, 10%, 100%);
+  border: 1px solid red;
+  display: none;
+}
+
+.hero-options > div.show-options-submenu {
+  display: block;
+}

@@ -10,32 +10,113 @@
 
     <link rel="stylesheet" href="css/main.css" />
     <!-- This must be how favicons are added? -->
-    <link rel="icon" href="images/favicon.png" />
+    <!-- <link rel="icon" href="images/favicon.png" /> -->
   </head>
 
   <body>
-
     <div class="container">
+      <div class="modal">
+        <div class="modal-content">
+            <div class="character-select">
+              <h1>Choose your character</h1>
+              <div class="hero">
+                  <div class="mage char">
+                      <span>🧙</span>
+                      <p>Mage</p>
+                  </div>
+                  <div class="warrior char">
+                      <span>🤺</span>
+                      <p>Warrior</p>
+                  </div>
+              </div>
+            </div>
+        </div>
+      </div>
 
-      <main>main
-        <div class="characters">characters
-          <div class="hero">hero</div>
-          <div class="enemy">enemy</div>
+      <main>
+        <div class="characters">
+          <div class="player-tile">
+            <span class="player-icon"></span>
+            <span class="player-name"></span>
+            <p>HP</p>
+            <div class="health-bar">
+              <div class="damage-bar"></div>
+            </div>
+            <p>Mana</p>
+            <div class="mana-bar">
+              <div class="mana-spent"></div>
+            </div>
+          </div>
+          <div class="enemy-tile">
+            <span class="enemy-icon"></span>
+            <span class="enemy-name"></span>
+            <p>HP</p>
+            <div class="enemy-health-bar">
+              <div class="enemy-damage-bar"></div>
+            </div>
+          </div>
         </div>
 
-        <div class="game-board">game board
-
+        <div class="game-board">
+          <div class="board-panel"></div>
+          <div class="board-panel"></div>
+          <div class="board-panel"></div>
+          <div class="board-panel"></div>
+          <div class="board-panel"></div>
+            <!-- 🩸
+            ⚡️
+            ☄️
+            🌪
+            🌬
+            ✨
+            🌩
+            ❄️
+            💧
+            🧃
+            🧊
+            🍺
+            🥤
+            🍵
+            🕒
+            🧪
+            🎉
+            🗡
+            💣
+            🛡
+            ⚰️
+            🖐 -->
         </div>
 
-        <div class="menu">menu
-          <div class="hero-menu"></div>hero menu
-          <div class="enemy-status"></div>enemy status
+        <div class="menu">
+          <div class="hero-menu">
+            <div class="hero-options">
+              <span>Attack</span>
+              <span>Magic</span>
+              <span>Items</span>
+              <div class="attacks">
+                <p>attac</p>
+              </div>
+              <div class="magic">
+                <p>maaage</p>
+              </div>
+              <div class="items">
+                <p>eetems</p>
+              </div>
+            </div>
+            <div class="magic-options">
+
+            </div>
+            <div class="item-options"></div>
+          </div>
+          <div class="enemy-status">
+            enemy status
+          </div>
         </div>
       </main>
     </div>
 
     <!-- If you want to use jQuery it has to come first: -->
     <script src="js/jquery-3.5.1.js"></script>
-    <script src="js/scripts.js"></script>
+    <script type="module" src="js/scripts.js"></script>
   </body>
 </html>
