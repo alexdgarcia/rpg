@@ -17,11 +17,17 @@ class Mage extends Hero {
     this.health = 25;
     this.mana = 30;
     this.icon = '🧙';
+    this.items = {
+      "Potion": {
+        icon: '🧪',
+        effect: 50,
+      },
+    };
     this.magic = {
       "Fire": this.fire,
-    }
+    };
   }
-
+  
   // Adding a new property only to Mage
   // instances:
   fire() {

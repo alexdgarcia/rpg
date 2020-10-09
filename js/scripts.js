@@ -37,6 +37,7 @@ $(document).ready(function() {
       this.isMage = event.currentTarget.classList.contains('mage');
       this.hero = (this.isMage) ? new Mage('Gandalf', 1, 'Mage') :
         new Warrior('Aragorn', 1, 'Warrior');
+      this.enemy = enemies[0];
 
       // Hide current modal:
         // $
@@ -45,7 +46,7 @@ $(document).ready(function() {
       $modal.addClass('hide-modal');
       // call rendering functions and set event listeners:
       this.renderHero();
-      this.renderEnemy(enemies[0]);
+      this.renderEnemy(this.enemy);
       this.eventListeners();
     },
     renderHero: function() {
@@ -66,9 +67,7 @@ $(document).ready(function() {
 
       switch (menuClicked) {
         case "attack":
-          const attackMenu = $('div.attacks');
-          attackMenu.addClass('show-options-submenu');
-          this.renderMenu(menuClicked, attackMenu);
+          this.heroAttack();
           break; // prevents fallthrough behavior.
         case "magic":
           const magicMenu = $('div.magic');
@@ -85,11 +84,23 @@ $(document).ready(function() {
     renderMenu: function(menuType, menuElement) {
       // Use the "in" keyword to iterate through the keys in an
       // object:
-      for (let spell in this.hero[menuType]) {
-        menuElement.append(`<p>${spell}</p>`);
-        console.log(spell);
+      for (let menuItem in this.hero[menuType]) {
+        menuElement.append(`<p>${menuItem}</p>`);
       }
-    }
+    },
+    heroAttack: function() {
+      this.processGame('attack', this.hero.attack());
+    },
+    processGame: function(payloadType, payload) {
+      if (payloadType === 'attack') {
+        console.log(`${this.hero.name}'s ${this.hero.weapon} did ${payload.damage} damage!`);
+        this.setEnemyHealth(payload.damage);
+      }
+    },
+    setEnemyHealth: function(damage) {
+      this.enemy.health -= damage;
+      console.log(`${this.enemy.name}'s health is now ${this.enemy.health}`)
+    },
   };
 
   // jQuery event listeners. Remember, the callback

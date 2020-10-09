@@ -208,6 +208,10 @@ div.characters {
   position: relative;
 }
 
+.hero-options span {
+  cursor: pointer;
+}
+
 .hero-options > div {
   position: absolute;
   left: 0;

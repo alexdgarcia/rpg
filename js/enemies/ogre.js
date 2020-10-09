@@ -6,6 +6,7 @@ class Ogre extends Enemy {
 
     this.icon = '👹';
     this.mana = 10;
+    this.health = 25;
   }
 }
 

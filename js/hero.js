@@ -11,14 +11,16 @@ class Hero {
   }
 
   attack() {
-    switch(this.job) {
-      case 'Mage':
-        console.log(`damage done is ${Math.round(this.level * 1.33)}`);
-        return Math.round(this.level * 1.33);
-        break;
-      case 'Warrior':
-        console.log(`damage done is ${Math.round(this.level * 2.5)}`);
-        return Math.round(this.level * 2.5);
+    if (this.job === 'Mage') {
+      return {
+        damage: Math.round(this.level * 1.33),
+        weapon: this.weapon,
+      };
+    }
+
+    return {
+      damage: Math.round(this.level * 2.5),
+      weapon: this.weapon,
     }
   }
 }
