@@ -100,12 +100,20 @@ $(document).ready(function() {
         attackInfo: this.enemy.attack(),
       });
     },
+    heroMagic: function() {
+      // Implement logic
+    },
+    enemyMagic: function() {
+      // Implement logic
+    },
     processGame: function(payloadType, payload) {
       const player = this[`${payload.class}`];
 
       if (payloadType === 'attack') {
         console.log(`${player.name}'s ${payload.attackInfo.weapon} did ${payload.attackInfo.damage} damage!`);
         this.setHealth(player.class, payload.attackInfo.damage);
+      } else if (payloadType === 'magic') {
+        // implement logic
       }
     },
     setHealth: function(playerClass, damage) {
