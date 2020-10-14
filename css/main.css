@@ -97,6 +97,7 @@ div.characters {
   border: 1px solid black;
   margin-left: 10px;
   margin-bottom: 3px;
+  background-color: hsl(0, 100%, 50%);
 }
 
 .damage-bar {
@@ -135,6 +136,7 @@ div.characters {
   border: 1px solid black;
   margin-left: 10px;
   margin-bottom: 3px;
+  background-color: hsl(0, 100%, 50%);
 }
 
 .enemy-damage-bar {

@@ -98,8 +98,19 @@ $(document).ready(function() {
       }
     },
     setEnemyHealth: function(damage) {
+      // When using $ to select elements, an object is returned with
+      // references to the found elements. You can use $ methods to
+      // apply changes to all references, or just target one element
+      // as is done below:
+      const enemyHealthBar = $('div.enemy-damage-bar');
+      const enemyHealthBarWidth = enemyHealthBar[0].offsetWidth;
+      const pixelPerDamageUnit = enemyHealthBarWidth / this.enemy.health;
+      const totalWidthReduction = damage * pixelPerDamageUnit;
+
       this.enemy.health -= damage;
-      console.log(`${this.enemy.name}'s health is now ${this.enemy.health}`)
+      enemyHealthBar.css('width', `${enemyHealthBarWidth - totalWidthReduction}`);
+
+      console.log(`${this.enemy.name}'s health is now ${this.enemy.health}`);
     },
   };
 
