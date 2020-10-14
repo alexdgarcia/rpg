@@ -4,6 +4,7 @@ class Hero {
   constructor(name, level) {
     this.name = name;
     this.level = level;
+    this.class = "hero";
   }
 
   greet() {

@@ -3,6 +3,7 @@ class Enemy {
     this.name = name;
     this.level = level;
     this.type = type;
+    this.class = 'enemy';
   }
 
   attack() {

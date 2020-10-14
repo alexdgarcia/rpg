@@ -89,28 +89,39 @@ $(document).ready(function() {
       }
     },
     heroAttack: function() {
-      this.processGame('attack', this.hero.attack());
+      this.processGame('attack', {
+        class: this.hero.class,
+        attackInfo: this.hero.attack(),
+      });
+    },
+    enemyAttack: function() {
+      this.processGame('attack', {
+        class: this.enemy.class,
+        attackInfo: this.enemy.attack(),
+      });
     },
     processGame: function(payloadType, payload) {
+      const player = this[`${payload.class}`];
+
       if (payloadType === 'attack') {
-        console.log(`${this.hero.name}'s ${this.hero.weapon} did ${payload.damage} damage!`);
-        this.setEnemyHealth(payload.damage);
+        console.log(`${player.name}'s ${payload.attackInfo.weapon} did ${payload.attackInfo.damage} damage!`);
+        this.setHealth(player.class, payload.attackInfo.damage);
       }
     },
-    setEnemyHealth: function(damage) {
+    setHealth: function(playerClass, damage) {
       // When using $ to select elements, an object is returned with
       // references to the found elements. You can use $ methods to
       // apply changes to all references, or just target one element
       // as is done below:
-      const enemyHealthBar = $('div.enemy-damage-bar');
-      const enemyHealthBarWidth = enemyHealthBar[0].offsetWidth;
-      const pixelPerDamageUnit = enemyHealthBarWidth / this.enemy.health;
+      const target = playerClass === 'hero' ? this.enemy : this.hero;
+      const targetHealthBar = playerClass === 'hero' ? $('div.enemy-damage-bar') : $('div.damage-bar');
+      const healthBarWidth = targetHealthBar[0].offsetWidth;
+      const pixelPerDamageUnit = healthBarWidth / target.health;
       const totalWidthReduction = damage * pixelPerDamageUnit;
 
-      this.enemy.health -= damage;
-      enemyHealthBar.css('width', `${enemyHealthBarWidth - totalWidthReduction}`);
-
-      console.log(`${this.enemy.name}'s health is now ${this.enemy.health}`);
+      target.health -= damage;
+      targetHealthBar.css('width', `${healthBarWidth - totalWidthReduction}`);
+      console.log(`${target.name}'s health is now ${target.health}`);
     },
   };
 
