@@ -73,6 +73,7 @@ $(document).ready(function() {
           const magicMenu = $('div.magic');
           magicMenu.addClass('show-options-submenu');
           this.renderMenu(menuClicked, magicMenu);
+          this.heroMagicMenu();
           break;
         case "items":
           const itemsMenu = $('div.items');
@@ -100,10 +101,19 @@ $(document).ready(function() {
         attackInfo: this.enemy.attack(),
       });
     },
-    heroMagic: function() {
-      // Implement logic
+    heroMagicMenu: function() {
+      const $magicMenu = $('div.magic.show-options-submenu');
+      $magicMenu.on('click', this.heroMagicAttack.bind(this));
     },
-    enemyMagic: function() {
+    heroMagicAttack: function(magicEvent) {
+      const magicSpell = magicEvent.target.innerText;
+
+      this.processGame('magic', {
+        class: this.hero.class,
+        magicInfo: this.hero.magic[magicSpell].bind(this.hero)(),
+      });
+    },
+    enemyMagicAttack: function() {
       // Implement logic
     },
     processGame: function(payloadType, payload) {
@@ -113,7 +123,8 @@ $(document).ready(function() {
         console.log(`${player.name}'s ${payload.attackInfo.weapon} did ${payload.attackInfo.damage} damage!`);
         this.setHealth(player.class, payload.attackInfo.damage);
       } else if (payloadType === 'magic') {
-        // implement logic
+        console.log(payload.magicInfo.message);
+        this.setHealth(player.class, payload.magicInfo.damage);
       }
     },
     setHealth: function(playerClass, damage) {
@@ -122,13 +133,13 @@ $(document).ready(function() {
       // apply changes to all references, or just target one element
       // as is done below:
       const target = playerClass === 'hero' ? this.enemy : this.hero;
-      const targetHealthBar = playerClass === 'hero' ? $('div.enemy-damage-bar') : $('div.damage-bar');
-      const healthBarWidth = targetHealthBar[0].offsetWidth;
+      const $targetHealthBar = playerClass === 'hero' ? $('div.enemy-damage-bar') : $('div.damage-bar');
+      const healthBarWidth = $targetHealthBar[0].offsetWidth;
       const pixelPerDamageUnit = healthBarWidth / target.health;
       const totalWidthReduction = damage * pixelPerDamageUnit;
 
       target.health -= damage;
-      targetHealthBar.css('width', `${healthBarWidth - totalWidthReduction}`);
+      $targetHealthBar.css('width', `${healthBarWidth - totalWidthReduction}`);
       console.log(`${target.name}'s health is now ${target.health}`);
     },
   };

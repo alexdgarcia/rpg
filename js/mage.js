@@ -27,16 +27,21 @@ class Mage extends Hero {
       "Fire": this.fire,
     };
   }
-  
+
   // Adding a new property only to Mage
   // instances:
   fire() {
     const cost = 5;
 
     if (this.mana >= cost) {
-      console.log(`${this.name} uses fire`);
       this.mana -= cost;
-      return this.level * 3;
+
+      return {
+        message: `${this.name} uses fire`,
+        damage: this.level * 3,
+      };
+    } else {
+      throw new Error('Hero lacks sufficient Mana!')
     }
   }
 }
