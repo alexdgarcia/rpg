@@ -34,9 +34,8 @@ class Mage extends Hero {
     const cost = 5;
 
     if (this.mana >= cost) {
-      this.mana -= cost;
-
       return {
+        manaCost: cost,
         message: `${this.name} uses fire`,
         damage: this.level * 3,
       };

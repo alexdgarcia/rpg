@@ -105,8 +105,11 @@ $(document).ready(function() {
       const $magicMenu = $('div.magic.show-options-submenu');
       $magicMenu.on('click', this.heroMagicAttack.bind(this));
     },
-    heroMagicAttack: function(magicEvent) {
+    heroMagicAttack: function(magicEvent, magicMenu) {
+      const $magicMenu = $('div.magic.show-options-submenu');
       const magicSpell = magicEvent.target.innerText;
+      // jQuery method for removing a class:
+      $magicMenu.removeClass('show-options-submenu');
 
       this.processGame('magic', {
         class: this.hero.class,
@@ -125,6 +128,7 @@ $(document).ready(function() {
       } else if (payloadType === 'magic') {
         console.log(payload.magicInfo.message);
         this.setHealth(player.class, payload.magicInfo.damage);
+        this.setMana(payload);
       }
     },
     setHealth: function(playerClass, damage) {
@@ -135,12 +139,22 @@ $(document).ready(function() {
       const target = playerClass === 'hero' ? this.enemy : this.hero;
       const $targetHealthBar = playerClass === 'hero' ? $('div.enemy-damage-bar') : $('div.damage-bar');
       const healthBarWidth = $targetHealthBar[0].offsetWidth;
-      const pixelPerDamageUnit = healthBarWidth / target.health;
-      const totalWidthReduction = damage * pixelPerDamageUnit;
+      const pixelPerDamageDealt = healthBarWidth / target.health;
+      const totalWidthReduction = damage * pixelPerDamageDealt;
 
       target.health -= damage;
       $targetHealthBar.css('width', `${healthBarWidth - totalWidthReduction}`);
       console.log(`${target.name}'s health is now ${target.health}`);
+    },
+    setMana: function(payload) {
+      const $targetManaBar = $('div.mana-spent');
+      const manaBarWidth = $targetManaBar[0].offsetWidth;
+      const pixelPerManaCost = manaBarWidth / this.hero.mana;
+      const totalWidthReduction = payload.magicInfo.manaCost * pixelPerManaCost;
+
+      this.hero.mana -= payload.magicInfo.manaCost;
+      $targetManaBar.css('width', `${manaBarWidth - totalWidthReduction}`);
+      console.log(`${this.hero.name}'s mana is now ${this.hero.mana}`);
     },
   };
 

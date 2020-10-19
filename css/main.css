@@ -109,6 +109,7 @@ div.characters {
 .mana-bar {
   width: 80%;
   height: 5px;
+  background-color: hsl(0, 10%, 80%);
   border: 1px solid black;
   margin-left: 10px;
 }
@@ -227,4 +228,8 @@ div.characters {
 
 .hero-options > div.show-options-submenu {
   display: block;
+}
+
+div.show-options-submenu > p {
+  cursor: pointer;
 }
